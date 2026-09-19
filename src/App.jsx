@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -21,7 +21,7 @@ import Landing from "./pages/Landing";
 
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
@@ -43,6 +43,6 @@ export default function App() {
         <Route path="/policy" element={<Policy />} />
         <Route path="/terms" element={<Terms />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }

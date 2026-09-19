@@ -122,6 +122,12 @@ const parathaRestaurants = [
 
 // ─── SUBCOMPONENTS ────────────────────────────────────────────────────────────
 
+const FALLBACK_IMAGE = `${import.meta.env.BASE_URL}fallback-food.svg`;
+const handleImageError = (event) => {
+  event.currentTarget.onerror = null;
+  event.currentTarget.src = FALLBACK_IMAGE;
+};
+
 function FoodCard({ item, onAdd }) {
   const [added, setAdded] = useState(false);
   const handleAdd = () => {
@@ -131,7 +137,7 @@ function FoodCard({ item, onAdd }) {
   };
   return (
     <div className="card">
-      <img src={item.img} alt={item.name} />
+      <img src={item.img} alt={item.name} onError={handleImageError} />
       <h3>{item.name}</h3>
       {item.desc && <p>{item.desc}</p>}
       <h4>₹{item.price}</h4>
@@ -179,7 +185,7 @@ function RestaurantSubSection({ title, data, sectionId, onAdd }) {
       <div className="restaurant-grid">
         {data.map((r) => (
           <div key={r.name + r.item} className="card" data-rating={r.rating} data-time={r.time}>
-            <img src={r.img} alt={r.name} />
+            <img src={r.img} alt={r.name} onError={handleImageError} />
             <h3>{r.name}</h3>
             <p>⭐{r.rating} • {r.time}-{r.time + 5} mins</p>
             <p>South Indian</p>
@@ -469,7 +475,7 @@ export default function Home() {
 
       {/* ── SLIDESHOW ────────────────────────────────────── */}
       <div className="slideshow-container">
-        <img src={slideImages[slideIdx]} alt="food banner" />
+        <img src={slideImages[slideIdx]} alt="food banner" onError={handleImageError} />
       </div>
 
       {/* ── DELIVERY LOCATION ────────────────────────────── */}
@@ -489,7 +495,7 @@ export default function Home() {
         {restaurants.map((r) => (
           <div className="card" key={r.name}>
             <div className="card-img">
-              <img src={r.img} alt={r.name} />
+              <img src={r.img} alt={r.name} onError={handleImageError} />
               <h2>{r.name}</h2>
               <div className="rating">⭐ {r.rating}</div>
             </div>
@@ -514,7 +520,7 @@ export default function Home() {
             className="food-item"
             onClick={() => setActiveSection(activeSection === f.section ? null : f.section)}
           >
-            <img src={f.img} alt={f.label} />
+            <img src={f.img} alt={f.label} onError={handleImageError} />
             <p>{f.label}</p>
           </div>
         ))}
